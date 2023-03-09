@@ -1,5 +1,4 @@
-package org.example;
-
+package pvehiculos;
 import com.mongodb.client.*;
 import org.bson.Document;
 
@@ -25,7 +24,7 @@ public class Main {
 
         MongoCursor<Document> cursor = collection.find().iterator();
 
-        while (cursor.hasNext()) {
+        while (cursor.hasNext()){
             Document doc = cursor.next();
             int id = doc.getInteger("_id");
             String dni = doc.getString("dni");
@@ -34,9 +33,11 @@ public class Main {
 
             //AMOSAR O NOME E O NUMERO DE COMPRAS DO CLIENTE CORRESPONDIENTE
             TypedQuery<Clientes> query =
-                    em.createQuery("SELECT c FROM Clientes c WHERE c.dni = '" + dni + "'", Clientes.class);
-            Clientes c = query.getSingleResult();
-            System.out.println("nomec -> " + c.nomec);
+                    em.createQuery("SELECT c FROM Clientes c WHERE dni = '"+dni+"'", Clientes.class);
+            List<Clientes> results = query.getResultList();
+            for (Clientes c : results) {
+                System.out.println("Nomec -> " + c.nomec + " Ncompras -> " + c.ncompras);
+            }
         }
     }
 }

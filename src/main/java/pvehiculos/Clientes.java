@@ -1,4 +1,4 @@
-package org.example;
+package pvehiculos;
 import java.io.Serializable;
 import javax.persistence.*;
 @Entity
